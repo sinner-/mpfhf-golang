@@ -12,7 +12,7 @@ func toBinArray(message string) []int {
     var binArray []int
 
     for _, c := range message {
-        binString = fmt.Sprintf("%s%b", binString, c)
+        binString = fmt.Sprintf("%s%.8b", binString, c)
     }
 
     for _, i := range strings.Split(binString, "") {
@@ -59,6 +59,7 @@ func main() {
     flag.Parse()
 
     M := toBinArray(*message)
+    fmt.Println(M)
     R := make([]int, *bits)
     S := make([]int, 1)
 
