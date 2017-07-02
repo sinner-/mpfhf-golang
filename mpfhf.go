@@ -5,7 +5,12 @@ import (
     "fmt"
     "strings"
     "strconv"
+    "time"
 )
+
+func getTime() int64 {
+    return time.Now().UnixNano() / int64(time.Millisecond)
+}
 
 func toBinArray(message string) []int {
     binString := ""
@@ -56,10 +61,11 @@ func screw(a []int, b []int, M_pos int, half bool) {
 func main() {
     message := flag.String("message", "MP kicks ass!", "message")
     bits := flag.Int("bits", 64, "num of bits")
+    time := flag.String("time", "n", "print runtime in ms")
     flag.Parse()
 
     M := toBinArray(*message)
-    fmt.Println(M)
+    startTime := getTime()
     R := make([]int, *bits)
     S := make([]int, 1)
 
@@ -91,6 +97,10 @@ func main() {
         }
         M_pos += 1
         step += 1
+    }
+
+    if *time == "y" {
+        fmt.Println(getTime() - startTime)
     }
 
     for _, i := range R {
